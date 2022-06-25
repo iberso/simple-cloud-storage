@@ -1,12 +1,12 @@
 from http import HTTPStatus
 import json
-import queue
 from nameko.extensions import DependencyProvider
 import mysql.connector
 import uuid
 import hashlib
 from mysql.connector import Error
 from mysql.connector import pooling
+import os
 
 class DatabaseWrapper:
     connection = None
@@ -101,10 +101,10 @@ class Database(DependencyProvider):
                 pool_name="database_pool",
                 pool_size=5,
                 pool_reset_session=True,
-                host='localhost',
-                database='dbsimplecloudstorage',
+                host= os.getenv('DB_CONNECTION'),
+                database= os.getenv('DB_NAME'),
                 user='root',
-                password=''
+                password= os.getenv('DB_PASSWORD')
             )
         except Error as e :
             print ("Error while connecting to MySQL` using Connection pool ", e)

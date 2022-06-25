@@ -1,0 +1,4 @@
+itsdangerous
+mysql-connector-python==8.0.28
+nameko==2.14.1
+requests==2.27.0

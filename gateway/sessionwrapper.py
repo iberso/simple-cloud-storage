@@ -47,7 +47,7 @@ class SessionWrapper:
 class SessionProvider(DependencyProvider):
 
     def setup(self):
-        self.client = redis.Redis(host='localhost', port=6379, db=0)
+        self.client = redis.Redis(host='redis', port=6379, db=0)
     
     def get_dependency(self, worker_ctx):
         return SessionWrapper(self.client)

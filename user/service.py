@@ -1,5 +1,5 @@
 from nameko.rpc import rpc
-from dependencies.user import databasewrapper
+import databasewrapper
 
 class UserService:
     name = 'user_service'

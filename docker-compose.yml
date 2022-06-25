@@ -2,10 +2,70 @@ version: '3.1'
 
 services:
   db:
-    image: mysql
-    restart: always
+    image: arm64v8/mysql:oracle
+    restart: on-failure
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      
+    volumes:
+      - db:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  redis:
+    image: redis:7.0.0-alpine3.16
+    restart: on-failure
+
+  rabbitmq:
+    image: rabbitmq:3.9.17-alpine
+    restart: on-failure
+
+  storage:
+    build: './storage'
+    restart: on-failure
+    volumes:
+      - ./storage:/code
+    depends_on:
+      - rabbitmq
+      - db
+    environment:
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_USER: ${DB_USER:-root}
+      DB_CONNECTION: db
+      DB_NAME: ${DB_NAME:-dbsimplecloudstorage}
+      RABBIT_HOST: rabbitmq
+
+  user:
+    build: './user'
+    restart: on-failure
+    volumes:
+      - ./user:/code
+    depends_on:
+      - rabbitmq
+      - db
+    environment:
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_USER: ${DB_USER:-root}
+      DB_CONNECTION: db
+      DB_NAME: ${DB_NAME:-dbsimplecloudstorage}
+      RABBIT_HOST: rabbitmq
+
+  gateway:
+    build: './gateway'
+    restart: on-failure
+    volumes:
+      - ./gateway:/code
+    depends_on:
+      - rabbitmq
+      - redis
+    ports:
+      - 8000:8000
+    environment:
+        # RABBIT_PASSWORD: "guest"
+        # RABBIT_USER: "guest"
+        # RABBIT_HOST: "rabbit"
+        # RABBIT_PORT: "5672"
+        RABBIT_HOST: rabbitmq
+
+volumes:
+  db:

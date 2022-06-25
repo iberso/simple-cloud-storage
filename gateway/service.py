@@ -5,7 +5,7 @@ from urllib import response
 from nameko.web.handlers import http
 from werkzeug.wrappers import Response
 from nameko.rpc import RpcProxy
-from dependencies.user.sessionwrapper import SessionProvider
+from sessionwrapper import SessionProvider
 
 class SCSGatewayService:
     name = "gateway_service"

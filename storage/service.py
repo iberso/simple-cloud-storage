@@ -1,7 +1,7 @@
 from http import HTTPStatus
 import json
 from nameko.rpc import rpc
-from dependencies.storage import databasewrapper
+import databasewrapper
 import requests
 
 class StorageService:
