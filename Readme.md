@@ -1,4 +1,9 @@
 # Simple Cloud Storage
+This project was created to fulfill an individual assignment in a service-oriented architecture course.
+
+we were told to create a simple cloud service where this service has 2 main features:
+- File Upload
+- File Download
 
 ## Technologies Used:
 - Python 3
@@ -15,6 +20,7 @@
 ## REST API Endpoint
 
 ### User Service
+
 ```bash
 POST /user/register
 ```
