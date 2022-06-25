@@ -6,6 +6,7 @@
 - Nameko
 - Docker
 - Redis
+- RabbitMQ
 - MySQL
 
 ## Service Architecture 
