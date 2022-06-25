@@ -12,6 +12,8 @@
 ![Architecture-simple-cloud-storage](https://user-images.githubusercontent.com/74914280/175780680-9e857af9-2fb0-4ba7-a57c-1df845839685.png)
 
 ## REST API Endpoint
+
+### User Service
 ```bash
 POST /user/register
 ```
@@ -27,7 +29,7 @@ POST /user/logout
 ```bash
 GET /user/<id_user>
 ```
-
+### Storage Service
 ```bash
 POST /file/upload
 ```
