@@ -14,6 +14,10 @@ we were told to create a simple cloud service where this service has 2 main feat
 - RabbitMQ
 - MySQL
 
+```bash
+this project is developed and tested on macos m1
+```
+
 ## Service Architecture 
 ![Architecture-simple-cloud-storage](https://user-images.githubusercontent.com/74914280/175780680-9e857af9-2fb0-4ba7-a57c-1df845839685.png)
 
